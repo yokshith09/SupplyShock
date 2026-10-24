@@ -1,6 +1,7 @@
 # D1 — What We Build, Rules, Milestones & Prompts
 
 > Owner: **D1 (Conversation & Execution)**. Event day: 24 Oct 2026, submit by **17:50 IST**.
+> Status: FINAL (13:15 IST). Times shifted +25 min from the first draft because M0 started late; M5/M6 unchanged.
 > Source of truth: [04_TEAM_PLAN.md](04_TEAM_PLAN.md) §B (tasks), §E (contracts), [TRD](TRD.md), [PRD](PRD.md). Hackpack: https://innovationlab.fetch.ai/events/hackathons/fetch-a-thon-3/hackpack
 
 ## 1. What D1 builds (in one paragraph)
@@ -35,14 +36,48 @@ Everything the user sees and every outward action. The **Orchestrator** agent sp
 
 | # | Time (IST) | Milestone | D1 tasks | Gate (must be true to move on) |
 |---|---|---|---|---|
-| **M0** | 12:50–13:30 | Skeleton + hello agent live in ASI:One | 0.1, 0.2, 0.4, D1-1 | Message typed in ASI:One gets an echo reply from your Orchestrator on Agentverse |
-| **M1** | 13:30–14:15 | Brain: intents, session, template plans, mock dispatch | D1-2, 3, 4, 6 | `chat_cli.py` runs the EVENT_IMPACT text flow end to end in `mock` mode; tests green |
-| **M2** | 14:15–15:00 | Executor + first real specialist | D1-5, store.py, logging | Flow runs in `local` mode with D2's real Sentinel (due ~14:50) while other tasks stay `mock`; timeout/retry/degraded tests green |
-| **M3** | 15:00–15:45 | Action agent sends real emails | D1-10 | Approving an option sends RFQ/expedite emails to the demo inbox and writes a PO PDF; `ActionReceipt` correct |
-| **M4** | 15:45–16:30 | Cards + approval routing in ASI:One | D1-7, D1-8, Agentverse READMEs | Cards work in ASI:One using real Exposure (due ~15:25) and Sourcing (~15:45); Strategy is real from ~16:05, mock before; clicking Approve triggers M3 |
+| **M0** | 13:15–13:50 | Skeleton + hello agent live in ASI:One | 0.1, 0.2, 0.4, D1-1 | Message typed in ASI:One gets an echo reply from your Orchestrator on Agentverse |
+| **M1** | 13:50–14:30 | Brain: intents, session, template plans, mock dispatch | D1-2, 3, 4, 6 | `chat_cli.py` runs the EVENT_IMPACT text flow end to end in `mock` mode; tests green |
+| **M2** | 14:30–15:10 | Executor + first real specialist | D1-5, store.py, logging | Flow runs in `local` mode with D2's real Sentinel (due ~14:50) while other tasks stay `mock`; timeout/retry/degraded tests green |
+| **M3** | 15:10–15:50 | Action agent sends real emails | D1-10 | Approving an option sends RFQ/expedite emails to the demo inbox and writes a PO PDF; `ActionReceipt` correct |
+| **M4** | 15:50–16:30 | Cards + approval routing in ASI:One | D1-7, D1-8, Agentverse READMEs | Cards work in ASI:One using real Exposure (due ~15:25) and Sourcing (~15:45); Strategy is real from ~16:05, mock before; clicking Approve triggers M3 |
 | **M5** | 16:30–17:10 | Always-on + remote + shared chat | D1-12 | Agents hosted; `remote` mode works (D2's agents register ~16:35; if not, the hosted Orchestrator runs D2 services in `local` mode); a full run recorded as a public ASI:One shared chat |
 | **M6** | 17:10–17:50 | Video + submit | D1-13 | 3–5 min video; dashboard submission accepted; every link opens while logged out |
 | *Stretch* | only if M4 done early | Payment (D1-9), Watchtower (D1-11) | | Never at the cost of M5/M6 |
+
+## 4b. Final D1 task list (every D1 task has exactly one milestone)
+
+| Task | What | Milestone | Done when |
+|---|---|---|---|
+| 0.1 / 0.2 | Skeleton, `shared/models.py`, `shared/constants.py` | M0 | models on `main`; imports work |
+| D1-1 | Orchestrator + Chat Protocol + mailbox + Agentverse | M0 | echo reply in ASI:One |
+| D1-2 | `session.py` | M1 | state survives between messages |
+| D1-3 | `intents.py` + `prompts.py` (ASI1 + keyword fallback) | M1 | 6 intents classify; works without API key |
+| D1-4 | `planner.py` (template plan first, LLM plan optional) | M1 | `build_plan(intent)` returns a valid Plan |
+| D1-6 | `shared/dispatch.py` (mock; local added in M2; remote in M5) | M1/M2/M5 | same code runs in all 3 modes |
+| `scripts/chat_cli.py` | local text chat | M1 | full text flow in mock mode |
+| D1-5 | `executor.py` + `dispatcher.py` + `store.py` + `shared/logging.py` | M2 | parallel, timeout, retry, degraded, HUMAN gate tests green |
+| D1-10 | Action agent: emails, PDF, receipt | M3 | real emails in demo inbox |
+| D1-7 | `cards.py` + text fallbacks | M4 | cards render in ASI:One |
+| D1-8 | card-response routing | M4 | Approve triggers Action |
+| Agentverse READMEs (Orchestrator, Action) | badges, keywords, prompts | M4 | profiles discoverable |
+| D1-12 | `run_all.py`, deploy, remote dispatch, `config/agents.json`, README run steps | M5 | works with laptop off |
+| D1-13 | shared chat, video (3-5 min), description, submission | M6 | dashboard accepted |
+| D1-9 / D1-11 | Payment / Watchtower | Stretch | only if M4 done before 16:00 |
+
+## 4c. Handshake with D2 (so nothing collides)
+
+| D2 task (their time) | What D1 needs from it | D1 action |
+|---|---|---|
+| T0 fixtures (to 13:30) | needs your `shared/models.py` | push models.py to `main` first thing in M0 |
+| T1 `shared/llm.py` (13:45) | ASI1 client for intents | M1 uses a keyword stub; switch to `complete_json` after it merges |
+| T2 `data/db.py` (14:10) | `get_supplier`, `get_connection` | M2 `store.py` and M3 Action rely on it |
+| T3 Sentinel (14:50) | first real specialist | M2 gate |
+| T4 Exposure (15:25), T5 Sourcing (15:45), T6 Strategy (16:05) | real data for cards/options | M4 swaps mock for real as each merges |
+| T7 agents registered (16:35) | their 4 Agentverse addresses | put in `config/agents.json`; if late, local fallback |
+| T8 integration (16:35-17:30) | fixes on their side | D1 leads M5 integration |
+
+Ownership never overlaps: D1 = `agents/orchestrator`, `agents/action`, `agents/watchtower`, `shared/{models,constants,config,logging,dispatch}.py`, `scripts/{run_all,chat_cli}.py`, `deploy/`, `config/`, root README, `requirements.txt`, `pyproject.toml`, `.gitignore`, `.env.example`, `data/migrations/2xx_*`. D2 owns everything else; ask in chat before touching a D2 path.
 
 If a milestone slips by more than 20 minutes, cut scope inside it (text instead of a card, one email instead of three) rather than moving the gate.
 
