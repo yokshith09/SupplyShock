@@ -15,6 +15,7 @@ class Session:
     sourcing: Any = None
     options: list = field(default_factory=list)
     chosen_option_id: str | None = None
+    run: Any = None  # the paused/finished DagRun
     receipt: Any = None
 
 
