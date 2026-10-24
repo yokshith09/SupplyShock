@@ -106,7 +106,7 @@ ALTERNATES = [
         "price_inr": 412.5,
         "lead_time_days": 9,
         "distance_km": 914.0,
-        "score": 0.86,
+        "score": 0.67,
     },
     {
         "supplier_id": "S-14",
@@ -115,7 +115,7 @@ ALTERNATES = [
         "price_inr": 428.0,
         "lead_time_days": 7,
         "distance_km": 427.0,
-        "score": 0.81,
+        "score": 0.55,
     },
     {
         "supplier_id": "S-16",
@@ -124,7 +124,7 @@ ALTERNATES = [
         "price_inr": 46.0,
         "lead_time_days": 6,
         "distance_km": 930.0,
-        "score": 0.84,
+        "score": 0.96,
     },
     {
         "supplier_id": "S-19",
@@ -133,7 +133,7 @@ ALTERNATES = [
         "price_inr": 1850.0,
         "lead_time_days": 10,
         "distance_km": 1372.0,
-        "score": 0.78,
+        "score": 0.95,
     },
 ]
 
