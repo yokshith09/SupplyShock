@@ -28,7 +28,8 @@ Everything the user sees and every outward action. The **Orchestrator** agent sp
 6. Secrets only in `.env` (git-ignored). Never print keys.
 7. Verify `uagents` / `uagents-core` / card / payment APIs against the installed package and the Fetch.ai docs, not memory.
 8. Small commits, pull before push, run only the narrowest relevant tests.
-9. Anything not needed for the demo flow waits. Payment and Watchtower are stretch.
+9. Collision rules with D2: never create or edit `tests/fixtures/contracts/`, `data/` (except `data/migrations/2xx_*`), `shared/llm.py`, `shared/geo.py` or `requirements/analytics.txt` content. Stage only your own paths (`git add <paths>`, never `git add -A`), `git pull --rebase origin main` before every push, and push `shared/models.py` to `main` within minutes of M0 because D2's T0 fixtures wait on it.
+10. Anything not needed for the demo flow waits. Payment and Watchtower are stretch.
 
 ## 4. Milestones (one after the other; do not start the next until the gate passes)
 
@@ -36,10 +37,10 @@ Everything the user sees and every outward action. The **Orchestrator** agent sp
 |---|---|---|---|---|
 | **M0** | 12:50–13:30 | Skeleton + hello agent live in ASI:One | 0.1, 0.2, 0.4, D1-1 | Message typed in ASI:One gets an echo reply from your Orchestrator on Agentverse |
 | **M1** | 13:30–14:15 | Brain: intents, session, template plans, mock dispatch | D1-2, 3, 4, 6 | `chat_cli.py` runs the EVENT_IMPACT text flow end to end in `mock` mode; tests green |
-| **M2** | 14:15–15:00 | Executor + real specialists | D1-5, store.py, logging | Same flow in `local` mode with D2's Sentinel + Exposure; timeout/retry/degraded tests green |
+| **M2** | 14:15–15:00 | Executor + first real specialist | D1-5, store.py, logging | Flow runs in `local` mode with D2's real Sentinel (due ~14:50) while other tasks stay `mock`; timeout/retry/degraded tests green |
 | **M3** | 15:00–15:45 | Action agent sends real emails | D1-10 | Approving an option sends RFQ/expedite emails to the demo inbox and writes a PO PDF; `ActionReceipt` correct |
-| **M4** | 15:45–16:30 | Cards + approval routing in ASI:One | D1-7, D1-8, Agentverse READMEs | Plan, exposure, options, approval and receipt cards work in ASI:One; clicking Approve triggers M3 |
-| **M5** | 16:30–17:10 | Always-on + remote + shared chat | D1-12 | Agents hosted; `remote` mode works; a full run recorded as a public ASI:One shared chat |
+| **M4** | 15:45–16:30 | Cards + approval routing in ASI:One | D1-7, D1-8, Agentverse READMEs | Cards work in ASI:One using real Exposure (due ~15:25) and Sourcing (~15:45); Strategy is real from ~16:05, mock before; clicking Approve triggers M3 |
+| **M5** | 16:30–17:10 | Always-on + remote + shared chat | D1-12 | Agents hosted; `remote` mode works (D2's agents register ~16:35; if not, the hosted Orchestrator runs D2 services in `local` mode); a full run recorded as a public ASI:One shared chat |
 | **M6** | 17:10–17:50 | Video + submit | D1-13 | 3–5 min video; dashboard submission accepted; every link opens while logged out |
 | *Stretch* | only if M4 done early | Payment (D1-9), Watchtower (D1-11) | | Never at the cost of M5/M6 |
 
@@ -54,12 +55,12 @@ We are D1 in the SupplyShock repo for Fetch-A-Thon 3.0 (deadline today 17:50 IST
 
 ### M0 prompt
 ```
-Milestone M0. Create the minimal skeleton (folders from 04_TEAM_PLAN §B.1, pyproject.toml, .gitignore with .env and *.db, requirements/orchestration.txt, root requirements.txt, .env.example). Write shared/models.py (all schemas from TRD §5, envelope rules from §E.1) and shared/constants.py (§E.2). Then build agents/orchestrator/agent.py: a uAgent with mailbox=True that includes chat_protocol_spec (publish_manifest=True), acknowledges every ChatMessage, and replies with an echo plus the text "SupplyShock online". Add a short README_AGENTVERSE.md with the two badges (tag:innovationlab, tag:hackathon), keywords and 3 example prompts. Give me the exact commands to install, run, and connect the mailbox to Agentverse so I can test it from ASI:One. Gate: echo reply visible in ASI:One.
+Milestone M0. Create the minimal skeleton for D1 paths only (agents/orchestrator, agents/action, shared/, scripts/, deploy/, tests/orchestrator, pyproject.toml, .gitignore with .env and *.db, requirements/orchestration.txt, a placeholder requirements/analytics.txt containing only a comment so `-r` works, root requirements.txt with the two -r lines, pinned uagents/uagents-core versions, and .env.example with the two marked blocks `# --- D1: orchestration ---` and `# --- D2: analytics ---`). Do NOT create data/, tests/fixtures/ or any D2 folder; D2 creates them. Commit and push shared/models.py to main as soon as it is written because D2's fixtures depend on it. Write shared/models.py (all schemas from TRD §5, envelope rules from §E.1) and shared/constants.py (§E.2). Then build agents/orchestrator/agent.py: a uAgent with mailbox=True that includes chat_protocol_spec (publish_manifest=True), acknowledges every ChatMessage, and replies with an echo plus the text "SupplyShock online". Add a short README_AGENTVERSE.md with the two badges (tag:innovationlab, tag:hackathon), keywords and 3 example prompts. Give me the exact commands to install, run, and connect the mailbox to Agentverse so I can test it from ASI:One. Gate: echo reply visible in ASI:One.
 ```
 
 ### M1 prompt
 ```
-Milestone M1. Build in agents/orchestrator: session.py (per-sender state: active incident, plan state, last options), intents.py + prompts.py (ASI1 classification into the 6 Intents with entity extraction, and a keyword fallback that works with no API key), planner.py (template plan per intent first; LLM JSON plan validated by pydantic is optional, falls back to the template). Build shared/dispatch.py with DISPATCH_MODE=mock loading tests/fixtures/contracts/<ResponseType>.json (create realistic fixtures matching the demo story if D2's are not merged yet: 3 suppliers, 12 orders, ₹1.82 Cr, 3 options with OPT-C recommended). Build scripts/chat_cli.py to run the full EVENT_IMPACT text flow locally. Add tests/orchestrator for intents, planner and dispatch. Gate: chat_cli completes the flow in mock mode and pytest tests/orchestrator passes.
+Milestone M1. Build in agents/orchestrator: session.py (per-sender state: active incident, plan state, last options), intents.py + prompts.py (ASI1 classification into the 6 Intents with entity extraction, and a keyword fallback that works with no API key), planner.py (template plan per intent first; LLM JSON plan validated by pydantic is optional, falls back to the template). Build shared/dispatch.py with DISPATCH_MODE=mock loading tests/fixtures/contracts/<ResponseType>.json reading D2's fixtures from tests/fixtures/contracts/ (pull main first; if they are not merged yet, put temporary D1-only fixtures in tests/orchestrator/fixtures/ matching the demo story: 3 suppliers, 12 orders, ₹1.82 Cr, 3 options with OPT-C recommended, and never touch tests/fixtures/). Build scripts/chat_cli.py to run the full EVENT_IMPACT text flow locally. Add tests/orchestrator for intents, planner and dispatch. Gate: chat_cli completes the flow in mock mode and pytest tests/orchestrator passes.
 ```
 
 ### M2 prompt
@@ -79,7 +80,7 @@ Milestone M4. First check the ASI1 Interactive Cards docs (https://innovationlab
 
 ### M5 prompt
 ```
-Milestone M5. Make everything always-on and remote. Implement DISPATCH_MODE=remote using ctx.send with addresses from config/agents.json and replies matched by task_id. Add scripts/run_all.py and deploy/ configs for Agentverse-hosted or Render/Railway (pick the fastest path that keeps agents running without my laptop). Update the README quick start with exact run/test steps, the four agent names and Agentverse addresses, and keep both badges. Give me a checklist to deploy, plus a smoke test that sends one message to the Orchestrator and checks the receipt arrives. Gate: with my laptop's agents stopped, the flow still works in ASI:One.
+Milestone M5. Make everything always-on and remote. Implement DISPATCH_MODE=remote (with automatic per-agent fallback to local if an address is missing or unreachable, so the demo cannot depend on D2's registration timing) using ctx.send with addresses from config/agents.json and replies matched by task_id. Add scripts/run_all.py and deploy/ configs for Agentverse-hosted or Render/Railway (pick the fastest path that keeps agents running without my laptop). Update the README quick start with exact run/test steps, the four agent names and Agentverse addresses, and keep both badges. Give me a checklist to deploy, plus a smoke test that sends one message to the Orchestrator and checks the receipt arrives. Gate: with my laptop's agents stopped, the flow still works in ASI:One.
 ```
 
 ### M6 prompt
