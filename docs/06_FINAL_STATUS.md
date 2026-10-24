@@ -24,7 +24,7 @@ This page is the source of truth for what is built. Earlier planning docs (PRD, 
 - **Watchtower** follow-up alerts and the STATUS follow-up beyond a simple state message.
 - **GDELT news adapter**, supplier-check and standalone sourcing intents.
 - **Remote multi-agent messaging.** Sentinel, Exposure, Sourcing and Strategy run as in-process services called by the Orchestrator (`DISPATCH_LOCAL_AGENTS`). Typed-protocol agent wrappers for D2's services are being added separately; the Orchestrator does not yet call them over Agentverse.
-- **Always-on hosting** unless stated otherwise in the README. The Orchestrator is a mailbox agent: it answers only while its process is running.
+- **Cloud hosting.** The Orchestrator is a mailbox agent and answers only while its process runs. It is handed to D2 to run on an always-on machine: see [08_HOSTING.md](08_HOSTING.md) (`python scripts/run_all.py`).
 
 ## Data honesty
 - ERP data is a seeded dataset for a fictional manufacturer ("Apex Components Pvt Ltd").
