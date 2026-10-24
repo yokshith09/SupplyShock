@@ -7,11 +7,16 @@ Dispatch: DISPATCH_MODE=mock (default). To use D2's real services as they land:
 """
 import argparse
 import asyncio
+import os
 import sys
 import uuid
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+for _s in (sys.stdout, sys.stderr):  # Windows consoles default to cp1252 and crash on the rupee sign
+    if hasattr(_s, "reconfigure"):
+        _s.reconfigure(encoding="utf-8", errors="replace")
+os.environ.setdefault("LOG_LEVEL", "WARNING")  # quiet JSON logs in the CLI; set LOG_LEVEL=INFO to see them
 
 from dotenv import load_dotenv  # noqa: E402
 

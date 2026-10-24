@@ -1,6 +1,7 @@
 """Structured JSON logs keyed by incident_id / task_id / agent. Owner: D1; D2 imports get_logger."""
 import json
 import logging
+import os
 import sys
 
 _FIELDS = ("incident_id", "task_id", "agent", "latency_ms", "status")
@@ -22,7 +23,7 @@ def get_logger(name: str) -> logging.Logger:
         h = logging.StreamHandler(sys.stderr)
         h.setFormatter(_JsonFormatter())
         logger.addHandler(h)
-        logger.setLevel(logging.INFO)
+        logger.setLevel(os.getenv("LOG_LEVEL", "INFO").upper())
         logger.propagate = False
     return logger
 
