@@ -47,5 +47,5 @@ def options_text(options: list[Option]) -> str:
 
 def receipt_text(r: ActionReceipt) -> str:
     icon = {"done": "OK", "draft": "DRAFT", "failed": "FAILED"}
-    lines = [f"  [{icon.get(x.status, x.status)}] {x.type} -> {x.target}: {x.detail}" for x in r.results]
+    lines = [f"  [{icon.get(x.status, x.status)}] {x.type} -> {x.target}: {x.detail.splitlines()[0] if x.detail else ''}" for x in r.results]
     return "Execution receipt:\n" + ("\n".join(lines) or "  (no actions)")
