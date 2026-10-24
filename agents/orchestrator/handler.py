@@ -142,6 +142,8 @@ class Orchestrator:
             s.chosen_option_id = oid
         opt = chosen_option(s)
         action = sel.get("action")
+        log_task(log, f"selection action={action} option={opt.option_id}", incident_id=s.incident_id or "",
+                 agent="orchestrator", status="audit")
         if action == "pick_option":
             text = (f"You picked {opt.option_id}: {opt.label}.\n"
                     f"Extra cost {render.inr(opt.cost_delta_inr)}, risk -{opt.risk_reduction:.0%}, "

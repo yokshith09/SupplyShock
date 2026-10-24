@@ -166,3 +166,23 @@ def test_receipt_note_is_honest_about_email(orch, monkeypatch):
     say(orch, DEMO)
     (r,) = say(orch, "approve")
     assert "0 sent" in r.text and "No emails were sent" in r.text and "went to the demo inbox" not in r.text
+
+
+def test_picking_a_plan_never_executes_actions(monkeypatch, tmp_path):
+    """Safety: only an explicit approve may reach the Action agent, even with ASI:One's @mention prefix."""
+    from agents.orchestrator.dispatcher import make_runner
+    monkeypatch.setenv("DISPATCH_MODE", "mock")
+    calls = []
+    real = dispatch.call
+
+    async def spy(agent, request, timeout_s=20):
+        calls.append(agent)
+        return await real(agent, request, timeout_s)
+    o = Orchestrator(runner_factory=lambda s: make_runner(s, spy), save_incident=lambda d: None)
+    mention = "@agent1qgt7x0cakv0htfapv9yecj8mqw28jsyramh03aqztfquzlavcadc7nczfdz "
+    say(o, mention + DEMO)
+    assert "action" not in calls
+    (r,) = say(o, mention + json.dumps({"action": "pick_option", "option_id": "OPT-C", "incident_id": "x"}))
+    assert r.kind == "review" and "action" not in calls  # nothing executed yet
+    (r2,) = say(o, mention + json.dumps({"action": "approve", "option_id": "OPT-C", "incident_id": "x"}))
+    assert "Executed OPT-C" in r2.text and calls.count("action") == 1
