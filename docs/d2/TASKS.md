@@ -11,7 +11,7 @@
 | T0 | Phase 0 D2 part: fixtures + schema | 13:05–13:30 | D1 mock mode | ✅ |
 | T1 | `shared/llm.py` + `shared/geo.py` | 13:30–13:45 | D1 intents | ✅ |
 | T2 | Seed data + `db.py` | 13:45–14:10 | Exposure, Sourcing, D1 Action | ✅ |
-| T3 | Sentinel service (replay + GDACS + Open-Meteo) | 14:10–14:50 | Exposure | ☐ |
+| T3 | Sentinel service (replay + GDACS + Open-Meteo) | 14:10–14:50 | Exposure | ✅ |
 | T4 | Exposure service | 14:50–15:25 | Strategy, D1 cards | ☐ |
 | T5 | Sourcing service | 15:25–15:45 | Strategy | ☐ |
 | T6 | Strategy service | 15:45–16:05 | D1 approval + Action | ☐ |

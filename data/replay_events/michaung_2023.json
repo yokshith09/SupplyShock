@@ -1,0 +1,17 @@
+{
+  "event_id": "GDACS-TC-1001046-replay",
+  "type": "cyclone",
+  "title": "Cyclone Michaung (replay of Dec 2023 event)",
+  "center": {"lat": 13.08, "lon": 80.27},
+  "radius_km": 150.0,
+  "severity": "Orange",
+  "duration_days": 14,
+  "sources": ["GDACS (replay)"],
+  "confidence": 0.86,
+  "original": {
+    "name": "Severe Cyclonic Storm Michaung",
+    "start": "2023-12-01",
+    "end": "2023-12-06",
+    "landfall": "near Bapatla, Andhra Pradesh, 5 Dec 2023; severe flooding in Chennai 3-5 Dec 2023"
+  }
+}
