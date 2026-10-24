@@ -15,6 +15,7 @@ A multi-agent supply-chain disruption responder for manufacturers, built on Fetc
 | [Deliverables, Requirements & Tech Stack](docs/03_DELIVERABLES_REQUIREMENTS_TECHSTACK.md) | Submission checklist, requirement mapping, build plan |
 | [PRD](docs/PRD.md) | Product requirements |
 | [TRD](docs/TRD.md) | Technical design, schemas, protocols, failure handling |
+| [Team Plan](docs/04_TEAM_PLAN.md) | 2-developer task split, file ownership, integration contracts, Git workflow |
 
 ## Agents
 Orchestrator · Sentinel · Exposure · Sourcing · Strategy · Action · Watchtower
