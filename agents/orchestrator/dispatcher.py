@@ -4,8 +4,8 @@ from agents.orchestrator.planner import Task
 from agents.orchestrator.session import Session
 from shared import dispatch
 from shared.models import (
-    ActionRequest, EventQuery, EventResult, ExposureRequest, SourcingRequest, SourcingResult,
-    StrategyRequest)
+    ActionRequest, EventQuery, EventResult, ExposureRequest, ServiceError, SourcingRequest,
+    SourcingResult, StrategyRequest, TaskError)
 
 
 def _first(results: dict, task: Task, cls):
@@ -18,9 +18,29 @@ def _first(results: dict, task: Task, cls):
     return None
 
 
+CLARIFY_CODES = {"INVALID_INPUT", "NOT_FOUND"}
+
+
+def clarify_message(message: str) -> str:
+    return (f"I couldn't use that: {message}\n"
+            "Which city, port or region do you mean? For example: 'cyclone near Chennai'.")
+
+
 def make_runner(session: Session, call=None):
-    call = call or dispatch.call
+    raw_call = call or dispatch.call
     iid = session.incident_id or ""
+
+    async def call(agent, request, *a, **kw):  # noqa: F811 - wraps raw_call
+        """Turn D2's INVALID_INPUT / NOT_FOUND into a question for the user instead of a failure."""
+        try:
+            res = await raw_call(agent, request, *a, **kw)
+        except ServiceError as e:
+            if e.code in CLARIFY_CODES:
+                raise HaltPlan(clarify_message(e.message)) from e
+            raise
+        if isinstance(res, TaskError) and res.code in CLARIFY_CODES:
+            raise HaltPlan(clarify_message(res.message))
+        return res
 
     async def run_task(task: Task, results: dict):
         from shared.models import ExposureReport, StrategyOptions  # local import keeps top clean

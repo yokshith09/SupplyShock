@@ -186,3 +186,20 @@ def test_store_roundtrip_in_memory():
     st.log_action("inc-1", {"type": "rfq_email", "target": "S-21", "status": "done"})
     assert conn.execute("select status from incidents where id='inc-1'").fetchone()[0] == "CLOSED"
     assert st.list_actions("inc-1")[0]["target"] == "S-21"
+
+
+@pytest.mark.parametrize("mode", ["service_error", "task_error"])
+def test_invalid_place_becomes_clarifying_question(monkeypatch, mode):
+    monkeypatch.setenv("DISPATCH_MODE", "mock")
+
+    async def bad_place(agent, request, timeout_s=20):
+        if mode == "service_error":
+            raise ServiceError("INVALID_INPUT", "unknown place 'Atlantis'")
+        return TaskError(incident_id="i", task_id=request.task_id, code="INVALID_INPUT",
+                         message="unknown place 'Atlantis'", retryable=False)
+    s = Session(sender="u", incident_id="inc-3")
+    ir = classify_keywords("Cyclone warning near Chennai, are we exposed?")
+    dr = DagRun(build_plan(ir), make_runner(s, bad_place), fallback=fallback(s), incident_id="inc-3", **FAST)
+    run(dr.run())
+    assert dr.status == "CLOSED" and not dr.errors
+    assert "Atlantis" in dr.halt_message and "Which city" in dr.halt_message
