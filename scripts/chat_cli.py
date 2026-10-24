@@ -2,7 +2,8 @@
 
 Run:  python scripts/chat_cli.py          (interactive)
       python scripts/chat_cli.py "Cyclone warning on the Tamil Nadu coast, are we exposed?" --yes
-M1: sequential flow in DISPATCH_MODE=mock. The parallel executor replaces this loop in M2.
+Dispatch: DISPATCH_MODE=mock (default). To use D2's real services as they land:
+      set DISPATCH_LOCAL_AGENTS=sentinel,exposure      (PowerShell: $env:DISPATCH_LOCAL_AGENTS="sentinel,exposure")
 """
 import argparse
 import asyncio
@@ -15,57 +16,30 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from dotenv import load_dotenv  # noqa: E402
 
 from agents.orchestrator import render  # noqa: E402
+from agents.orchestrator.dispatcher import chosen_option, fallback, make_runner  # noqa: E402
+from agents.orchestrator.executor import DagRun  # noqa: E402
 from agents.orchestrator.intents import classify  # noqa: E402
-from agents.orchestrator.planner import build_plan, execution_order  # noqa: E402
+from agents.orchestrator.planner import build_plan  # noqa: E402
 from agents.orchestrator.prompts import HELP_TEXT  # noqa: E402
 from agents.orchestrator.session import SessionStore  # noqa: E402
-from shared import dispatch  # noqa: E402
 from shared.constants import Intent  # noqa: E402
-from shared.models import (  # noqa: E402
-    ActionRequest, EventQuery, ExposureRequest, SourcingRequest, StrategyRequest)
+from shared.models import ActionReceipt, EventResult, ExposureReport, SourcingResult, StrategyOptions  # noqa: E402
 
 store = SessionStore()
 
 
-async def run_event_impact(s, plan, approve) -> None:
-    iid, ids = s.incident_id, {}
-    for layer in execution_order(plan):
-        for t in layer:
-            if t.agent == "sentinel":
-                r = await dispatch.call("sentinel", EventQuery(
-                    incident_id=iid, task_id=t.id, location=t.args.get("location"), type=t.args.get("type")))
-                if not r.events:
-                    print("No matching event found. Describe the event and where it is.")
-                    return
-                s.event = r.events[0]
-                print(render.event_text(s.event))
-            elif t.agent == "exposure" and t.action == "compute":
-                s.exposure = await dispatch.call("exposure", ExposureRequest(incident_id=iid, task_id=t.id, event=s.event))
-                print(render.exposure_text(s.exposure))
-            elif t.agent == "sourcing":
-                s.sourcing = await dispatch.call("sourcing", SourcingRequest(
-                    incident_id=iid, task_id=t.id, exclude_zone=s.event,
-                    material_ids=[m.material_id for m in s.exposure.materials]))
-                print(f"Alternates found: {len(s.sourcing.alternates)} (search radius {s.sourcing.search_radius_km:.0f} km)")
-            elif t.agent == "exposure" and t.action == "stock_cover":
-                pass  # same data as compute in mock mode; real stock-cover call arrives with D2's Exposure
-            elif t.agent == "strategy":
-                res = await dispatch.call("strategy", StrategyRequest(
-                    incident_id=iid, task_id=t.id, exposure=s.exposure, sourcing=s.sourcing))
-                s.options = res.options
-                print(render.options_text(s.options))
-            elif t.agent == "human":
-                rec = next((o for o in s.options if o.recommended), s.options[0])
-                if not approve(rec):
-                    print("Not approved. No actions taken.")
-                    s.plan_state = "CLOSED"
-                    return
-            elif t.agent == "action":
-                rec = next((o for o in s.options if o.recommended), s.options[0])
-                s.receipt = await dispatch.call("action", ActionRequest(
-                    incident_id=iid, task_id=t.id, option=rec, approved_by=s.sender))
-                print(render.receipt_text(s.receipt))
-    s.plan_state = "CLOSED"
+def show(task, res) -> None:
+    if isinstance(res, EventResult):
+        print(render.event_text(res.events[0]))
+    elif isinstance(res, ExposureReport) and task.action == "compute":
+        print(render.exposure_text(res))
+    elif isinstance(res, SourcingResult):
+        print(f"Alternates found: {len(res.alternates)} (search radius {res.search_radius_km:.0f} km)"
+              + (f"  [degraded: {res.notes}]" if res.degraded else ""))
+    elif isinstance(res, StrategyOptions):
+        print(render.options_text(res.options))
+    elif isinstance(res, ActionReceipt):
+        print(render.receipt_text(res))
 
 
 async def handle(sender: str, text: str, yes: bool = False) -> None:
@@ -77,17 +51,27 @@ async def handle(sender: str, text: str, yes: bool = False) -> None:
         print(HELP_TEXT)
         return
     plan = build_plan(r)
-    s.plan, s.plan_state, s.incident_id = plan, "PLANNED", str(uuid.uuid4())
+    s.plan, s.incident_id, s.plan_state = plan, str(uuid.uuid4()), "PLANNED"
     print(render.plan_text(plan))
-    if r.intent == Intent.EVENT_IMPACT:
-        def approve(opt):
-            if yes:
-                print(f"Auto-approved {opt.option_id} (--yes)")
-                return True
-            return input(f"Approve option {opt.option_id} ({opt.label})? (y/n) ").strip().lower().startswith("y")
-        await run_event_impact(s, plan, approve)
-    else:
-        print("(M1: only EVENT_IMPACT is wired in the CLI; other intents are planned only.)")
+    if r.intent != Intent.EVENT_IMPACT:
+        print("(Only EVENT_IMPACT is wired in the CLI; other intents are planned only.)")
+        return
+    run = DagRun(plan=plan, run_task=make_runner(s), fallback=fallback(s),
+                 on_result=show, incident_id=s.incident_id)
+    await run.run()
+    if run.status == "AWAITING_APPROVAL":
+        opt = chosen_option(s)
+        ok = True if yes else input(
+            f"Approve option {opt.option_id} ({opt.label})? (y/n) ").strip().lower().startswith("y")
+        if yes:
+            print(f"Auto-approved {opt.option_id} (--yes)")
+        await run.resume(ok)
+    s.plan_state = run.status
+    if run.halt_message:
+        print(run.halt_message)
+    if run.errors:
+        print(f"Some steps failed: {run.errors}")
+    print(f"[plan status: {run.status}" + (f", degraded: {run.degraded}" if run.degraded else "") + "]")
 
 
 def main() -> None:

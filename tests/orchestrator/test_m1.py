@@ -62,7 +62,7 @@ def test_dispatch_mock_copies_ids_and_validates(monkeypatch):
 
 
 def test_dispatch_other_modes_not_ready(monkeypatch):
-    monkeypatch.setenv("DISPATCH_MODE", "local")
+    monkeypatch.setenv("DISPATCH_MODE", "remote")
     with pytest.raises(NotImplementedError):
         asyncio.run(dispatch.call("sentinel", EventQuery(incident_id="i", task_id="T1")))
 
