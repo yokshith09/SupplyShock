@@ -169,7 +169,9 @@ class Orchestrator:
         n_draft = sum(r.status == "draft" for r in rec.results)
         n_fail = sum(r.status == "failed" for r in rec.results)
         head = f"Executed {opt.option_id}: {n_sent} sent, {n_draft} drafted" + (f", {n_fail} failed" if n_fail else "")
-        text = (f"{head}. (Demo mode: emails went to the demo inbox.)\n{render.receipt_text(rec)}\n"
+        note = ("Demo mode: emails went to the demo inbox." if n_sent
+                else "No emails were sent (email is not configured); drafts are ready to copy.")
+        text = (f"{head}. ({note})\n{render.receipt_text(rec)}\n"
                 f"Incident {s.incident_id[:8]} is closed. Ask 'update on the incident' any time.")
         self._persist(s, opt)
         return [Reply(text, "detail", cards.receipt_detail(rec), terminal=True)]

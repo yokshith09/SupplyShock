@@ -158,3 +158,11 @@ def test_sessions_are_per_sender(orch):
     assert rb.kind is None and "SupplyShock online" in rb.text and not orch.saved
     (ra,) = say(orch, "approve", sender="a")
     assert "Executed OPT-C" in ra.text and len(orch.saved) == 1
+
+
+def test_receipt_note_is_honest_about_email(orch, monkeypatch):
+    monkeypatch.delenv("DEMO_SUPPLIER_INBOX")
+    monkeypatch.setenv("DISPATCH_LOCAL_AGENTS", "action")  # real Action service, no email configured
+    say(orch, DEMO)
+    (r,) = say(orch, "approve")
+    assert "0 sent" in r.text and "No emails were sent" in r.text and "went to the demo inbox" not in r.text
