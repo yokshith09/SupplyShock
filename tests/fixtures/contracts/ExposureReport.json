@@ -79,8 +79,9 @@
     "S-07 Sriperumbudur Electronics is 38 km from the cyclone centre -> inside the zone.",
     "S-11 Ennore Port Forwarding is 15 km from the cyclone centre -> inside the zone.",
     "Expected disruption for an Orange cyclone: 14 days.",
-    "M-12 ECU housing: 6.0 days of cover < 9-day lead time of the best alternate -> CRITICAL.",
-    "M-07 and M-15: cover below the 14-day disruption -> HIGH.",
+    "M-12 ECU housing (aluminium die-cast): 6.0 days of cover < 7-day lead time of the fastest alternate -> CRITICAL.",
+    "M-07 Wiring harness connector: 9.0 days of cover < 14-day disruption -> HIGH.",
+    "M-15 ECU control PCB assembly: 11.0 days of cover < 14-day disruption -> HIGH.",
     "12 open orders use these 5 materials and are due within 14 days: Rs 1.82 Cr at risk."
   ],
   "degraded": false,
