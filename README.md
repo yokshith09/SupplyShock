@@ -30,14 +30,18 @@ Every card also has a full text fallback, and every step works with typed comman
 |---|---|---|
 | **Orchestrator** (`agents/orchestrator`) | Chat Protocol + cards, planning, executor, approval gate | Registered on Agentverse (mailbox) |
 | **Action** (`agents/action`) | Emails, PO PDF, customer notices | Agentverse agent + in-process service |
-| Sentinel, Exposure, Sourcing, Strategy (`agents/<name>/service.py`) | Detect, calculate, recommend | In-process services called by the Orchestrator (`DISPATCH_LOCAL_AGENTS`); typed-protocol agent wrappers are being added |
+| **Sentinel**, **Exposure**, **Sourcing**, **Strategy** (`agents/<name>/`) | Detect, calculate, recommend | Run in-process inside the Orchestrator for the demo (`DISPATCH_LOCAL_AGENTS`), and also registered on Agentverse as their own agents (typed task protocol + Chat Protocol), so each can be found and used on its own in ASI:One |
 
-| Agent | Agentverse address |
-|---|---|
-| SupplyShock Orchestrator | `agent1qgt7x0cakv0htfapv9yecj8mqw28jsyramh03aqztfquzlavcadc7nczfdz` |
-| SupplyShock Action | `agent1q0tl4ypgxlsdw3srtkt46g96dec0kdes4qefj5clqz70ngwytekxq0qr5v2` |
+| Agent | Agentverse address | Profile |
+|---|---|---|
+| SupplyShock Orchestrator (start here) | `agent1qgt7x0cakv0htfapv9yecj8mqw28jsyramh03aqztfquzlavcadc7nczfdz` | [profile](https://agentverse.ai/agents/details/agent1qgt7x0cakv0htfapv9yecj8mqw28jsyramh03aqztfquzlavcadc7nczfdz/profile) |
+| SupplyShock Sentinel | `agent1qfqjsepd9rk7t2psxm4yv7973hj6xtewhqja4tzv2ddwglgkgs83g3yyqw4` | [profile](https://agentverse.ai/agents/details/agent1qfqjsepd9rk7t2psxm4yv7973hj6xtewhqja4tzv2ddwglgkgs83g3yyqw4/profile) |
+| SupplyShock Exposure | `agent1qt5g57mx85ls2nc74rw09ueykn5l0fpumxvrat5ruy5u5mz8ptrdjtcw06z` | [profile](https://agentverse.ai/agents/details/agent1qt5g57mx85ls2nc74rw09ueykn5l0fpumxvrat5ruy5u5mz8ptrdjtcw06z/profile) |
+| SupplyShock Sourcing | `agent1qw0xfrjl2nncpua7439f9k4rwscy0j24lelylkawhkac3xlp6ttz7ma6ey8` | [profile](https://agentverse.ai/agents/details/agent1qw0xfrjl2nncpua7439f9k4rwscy0j24lelylkawhkac3xlp6ttz7ma6ey8/profile) |
+| SupplyShock Strategy | `agent1qw7yptuckfzmn5yax5j5kllkd7n74y4pyn50a58cuh0y58y42tj8ztxtc2s` | [profile](https://agentverse.ai/agents/details/agent1qw7yptuckfzmn5yax5j5kllkd7n74y4pyn50a58cuh0y58y42tj8ztxtc2s/profile) |
+| SupplyShock Action | `agent1q0tl4ypgxlsdw3srtkt46g96dec0kdes4qefj5clqz70ngwytekxq0qr5v2` | [profile](https://agentverse.ai/agents/details/agent1q0tl4ypgxlsdw3srtkt46g96dec0kdes4qefj5clqz70ngwytekxq0qr5v2/profile) |
 
-Agentverse profile URL: _add after publishing_ · ASI:One shared chat: _add_ · Demo video: _add_
+ASI:One shared chat: https://asi1.ai/invite?channelInviteKey=2IPKxMbE_odu0gxh6oA4e1M0FuRqeFc3ZU3O7DQ8x5c · Demo video: _add_
 
 **Honest scope.** The company's ERP data (suppliers, BOM, inventory, orders) is a seeded demo dataset for a fictional manufacturer, "Apex Components Pvt Ltd". External signals use a recorded real event in replay mode (`REPLAY_MODE=true`) because live GDACS is slow and unreliable. Demo emails are redirected to a controlled inbox (`DEMO_SUPPLIER_INBOX`), never to real suppliers. Not built: Payment Protocol, Watchtower follow-up alerts.
 
@@ -51,7 +55,7 @@ python -m venv .venv
 pip install -r requirements.txt
 copy .env.example .env          # macOS/Linux: cp .env.example .env
 python data/seed_generator.py   # builds the demo ERP database (required)
-python -m pytest tests -q       # 145 tests, no network needed
+python -m pytest tests -q       # 151 tests, no network needed
 ```
 Edit `.env`: set `ORCH_SEED` to any secret phrase, `REPLAY_MODE=true`, `DISPATCH_LOCAL_AGENTS=sentinel,exposure,sourcing,strategy,action`, and (for real emails) `RESEND_API_KEY`, `RFQ_FROM_EMAIL=onboarding@resend.dev`, `DEMO_SUPPLIER_INBOX=<your Resend signup email>`. Without email settings the Action agent returns copy-ready drafts instead of sending.
 
@@ -62,6 +66,10 @@ python scripts/chat_cli.py "Cyclone warning on the Tamil Nadu coast, are we expo
 Run the agent for ASI:One:
 ```bash
 python -m agents.orchestrator.agent
+```
+Run Sentinel, Exposure, Sourcing and Strategy as standalone Agentverse agents (one supervised process; set `SENTINEL_SEED`, `EXPOSURE_SEED`, `SOURCING_SEED`, `STRATEGY_SEED` in `.env`):
+```bash
+python scripts/run_d2_agents.py
 ```
 To host it on another machine, follow [docs/08_HOSTING.md](docs/08_HOSTING.md) (`python scripts/run_all.py`). Open the inspector link it prints, click **Connect → Mailbox**, then chat with the agent from ASI:One (Agents enabled) and send: *Cyclone warning on the Tamil Nadu coast, are we exposed?*
 
