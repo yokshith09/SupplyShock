@@ -8,7 +8,7 @@
 
 | # | Task | Time box (IST) | Unblocks | Status |
 |---|---|---|---|---|
-| T0 | Phase 0 D2 part: fixtures + schema | 13:05–13:30 | D1 mock mode | ☐ |
+| T0 | Phase 0 D2 part: fixtures + schema | 13:05–13:30 | D1 mock mode | ✅ |
 | T1 | `shared/llm.py` + `shared/geo.py` | 13:30–13:45 | D1 intents | ☐ |
 | T2 | Seed data + `db.py` | 13:45–14:10 | Exposure, Sourcing, D1 Action | ☐ |
 | T3 | Sentinel service (replay + GDACS + Open-Meteo) | 14:10–14:50 | Exposure | ☐ |
