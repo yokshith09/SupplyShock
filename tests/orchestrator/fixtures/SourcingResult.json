@@ -1,0 +1,45 @@
+{
+  "incident_id": "7f3c2a9e-1b4d-4c8e-9a6f-2d5e8b1c0a47",
+  "task_id": "T3",
+  "alternates": [
+    {
+      "supplier_id": "S-21",
+      "name": "Pune Diecast Pvt Ltd",
+      "material_id": "M-12",
+      "price_inr": 412.5,
+      "lead_time_days": 9,
+      "distance_km": 914.0,
+      "score": 0.86
+    },
+    {
+      "supplier_id": "S-14",
+      "name": "Coimbatore Alloys",
+      "material_id": "M-12",
+      "price_inr": 428.0,
+      "lead_time_days": 7,
+      "distance_km": 427.0,
+      "score": 0.81
+    },
+    {
+      "supplier_id": "S-16",
+      "name": "Pune Wiring Systems",
+      "material_id": "M-07",
+      "price_inr": 46.0,
+      "lead_time_days": 6,
+      "distance_km": 930.0,
+      "score": 0.84
+    },
+    {
+      "supplier_id": "S-19",
+      "name": "Ahmedabad Electronics Works",
+      "material_id": "M-15",
+      "price_inr": 1850.0,
+      "lead_time_days": 10,
+      "distance_km": 1372.0,
+      "score": 0.78
+    }
+  ],
+  "search_radius_km": 1500.0,
+  "degraded": false,
+  "notes": ""
+}
