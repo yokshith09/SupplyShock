@@ -126,12 +126,15 @@ async def complete_json(
     timeout_s: float = 15,
 ) -> Any:
     """Ask for JSON only and return it parsed. Retries once on invalid JSON."""
-    instruction = {
-        "role": "system",
-        "content": "Reply with valid JSON only, no prose and no code fences. "
-        f"Shape: {schema_hint}",
-    }
-    convo = [instruction, *messages]
+    instruction = f"Reply with valid JSON only, no prose and no code fences. Shape: {schema_hint}"
+    # Some providers reject more than one system message, so merge into the caller's one.
+    if messages and messages[0].get("role") == "system":
+        convo = [
+            {"role": "system", "content": f"{messages[0]['content']}\n\n{instruction}"},
+            *messages[1:],
+        ]
+    else:
+        convo = [{"role": "system", "content": instruction}, *messages]
     text = await complete(convo, temperature=0, timeout_s=timeout_s)
     try:
         return _parse_json(text)

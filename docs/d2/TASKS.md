@@ -14,7 +14,7 @@
 | T3 | Sentinel service (replay + GDACS + Open-Meteo) | 14:10–14:50 | Exposure | ✅ |
 | T4 | Exposure service | 14:50–15:25 | Strategy, D1 cards | ✅ |
 | T5 | Sourcing service | 15:25–15:45 | Strategy | ✅ |
-| T6 | Strategy service | 15:45–16:05 | D1 approval + Action | ☐ |
+| T6 | Strategy service | 15:45–16:05 | D1 approval + Action | ✅ |
 | T7 | Agent wrappers + Agentverse registration + always-on hosting | 16:05–16:35 | Phase 3 | ☐ |
 | T8 | Integration support + demo numbers check | 16:35–17:30 | Submission | ☐ |
 | S1 | Stretch: failure tests + `send_task.py` | only if time | Reliability bonus | ☐ |

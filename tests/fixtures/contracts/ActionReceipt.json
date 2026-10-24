@@ -24,19 +24,55 @@
       "type": "draft_po",
       "target": "S-21",
       "status": "draft",
-      "detail": "PO-2026-0412 generated: 2000 x M-12 @ Rs 412.50"
+      "detail": "PO-2026-0412 generated: 4000 x M-12 @ Rs 412.50"
+    },
+    {
+      "type": "expedite_email",
+      "target": "S-07",
+      "status": "done",
+      "detail": "Expedite request sent to s07@supplyshock.demo (demo inbox)"
+    },
+    {
+      "type": "rfq_email",
+      "target": "S-16",
+      "status": "done",
+      "detail": "RFQ sent to s16@supplyshock.demo (demo inbox)"
+    },
+    {
+      "type": "expedite_email",
+      "target": "S-07",
+      "status": "done",
+      "detail": "Expedite request sent to s07@supplyshock.demo (demo inbox)"
+    },
+    {
+      "type": "rfq_email",
+      "target": "S-19",
+      "status": "done",
+      "detail": "RFQ sent to s19@supplyshock.demo (demo inbox)"
     },
     {
       "type": "customer_notice",
-      "target": "O-1007",
+      "target": "O-1011",
       "status": "draft",
-      "detail": "Assurance notice drafted for O-1007"
+      "detail": "Assurance notice drafted for O-1011"
     },
     {
       "type": "customer_notice",
-      "target": "O-1014",
+      "target": "O-1019",
       "status": "draft",
-      "detail": "Assurance notice drafted for O-1014"
+      "detail": "Assurance notice drafted for O-1019"
+    },
+    {
+      "type": "customer_notice",
+      "target": "O-1022",
+      "status": "draft",
+      "detail": "Assurance notice drafted for O-1022"
+    },
+    {
+      "type": "customer_notice",
+      "target": "O-1028",
+      "status": "draft",
+      "detail": "Assurance notice drafted for O-1028"
     }
   ],
   "degraded": false,

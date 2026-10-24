@@ -10,101 +10,201 @@
           "type": "expedite_email",
           "target_supplier_id": "S-03",
           "material_id": "M-12",
-          "qty": 2500
+          "qty": 1800
         },
         {
           "type": "expedite_email",
           "target_supplier_id": "S-07",
           "material_id": "M-07",
-          "qty": 6000
+          "qty": 7500
         },
         {
           "type": "expedite_email",
           "target_supplier_id": "S-07",
           "material_id": "M-15",
-          "qty": 1200
+          "qty": 800
+        },
+        {
+          "type": "customer_notice",
+          "order_id": "O-1011",
+          "kind": "assurance",
+          "new_date": null
+        },
+        {
+          "type": "customer_notice",
+          "order_id": "O-1022",
+          "kind": "assurance",
+          "new_date": null
+        },
+        {
+          "type": "customer_notice",
+          "order_id": "O-1019",
+          "kind": "delay",
+          "new_date": "2026-11-07"
+        },
+        {
+          "type": "customer_notice",
+          "order_id": "O-1028",
+          "kind": "delay",
+          "new_date": "2026-11-07"
         }
       ],
-      "cost_delta_inr": 420000.0,
-      "risk_reduction": 0.55,
-      "orders_saved": 7,
+      "cost_delta_inr": 587875.0,
+      "risk_reduction": 0.53,
+      "orders_saved": 10,
       "recommended": false,
-      "rationale": "Fastest to act (about 2 days), but it depends on suppliers inside the cyclone zone shipping before landfall, so 5 of 12 orders stay at risk."
+      "rationale": "Fastest to act (about 2 days) for Rs 5.9 L extra, but it relies on suppliers inside the impact zone shipping before landfall; saves 10 of 12 orders."
     },
     {
       "option_id": "OPT-B",
-      "label": "Switch M-12 to Pune Diecast (S-21)",
+      "label": "Switch to backup suppliers: M-12 to S-21, M-07 to S-16, M-15 to S-19",
       "actions": [
         {
           "type": "rfq_email",
           "target_supplier_id": "S-21",
           "material_id": "M-12",
-          "qty": 4000,
-          "need_by": "2026-11-05"
+          "qty": 8000,
+          "need_by": "2026-10-30"
         },
         {
           "type": "draft_po",
           "target_supplier_id": "S-21",
           "material_id": "M-12",
-          "qty": 4000,
+          "qty": 8000,
           "unit_price_inr": 412.5
+        },
+        {
+          "type": "rfq_email",
+          "target_supplier_id": "S-16",
+          "material_id": "M-07",
+          "qty": 10000,
+          "need_by": "2026-11-02"
+        },
+        {
+          "type": "rfq_email",
+          "target_supplier_id": "S-19",
+          "material_id": "M-15",
+          "qty": 1500,
+          "need_by": "2026-11-04"
+        },
+        {
+          "type": "customer_notice",
+          "order_id": "O-1019",
+          "kind": "assurance",
+          "new_date": null
+        },
+        {
+          "type": "customer_notice",
+          "order_id": "O-1022",
+          "kind": "assurance",
+          "new_date": null
+        },
+        {
+          "type": "customer_notice",
+          "order_id": "O-1028",
+          "kind": "assurance",
+          "new_date": null
+        },
+        {
+          "type": "customer_notice",
+          "order_id": "O-1011",
+          "kind": "delay",
+          "new_date": "2026-11-03"
         }
       ],
-      "cost_delta_inr": 280000.0,
-      "risk_reduction": 0.8,
+      "cost_delta_inr": 535000.0,
+      "risk_reduction": 0.86,
       "orders_saved": 11,
       "recommended": false,
-      "rationale": "Cheapest option and removes the cyclone risk for M-12, but the 9-day lead time arrives after the 6-day stock-out, so 1 order still slips."
+      "rationale": "Moves the at-risk materials to suppliers outside the zone for Rs 5.3 L extra; the first deliveries take up to 10 days, so it saves 11 of 12 orders."
     },
     {
       "option_id": "OPT-C",
-      "label": "Split M-12 50/50 between S-03 and S-21, plus safety stock",
+      "label": "Split: expedite from current suppliers + order half from backups",
       "actions": [
         {
           "type": "expedite_email",
           "target_supplier_id": "S-03",
           "material_id": "M-12",
-          "qty": 2000
+          "qty": 1800
         },
         {
           "type": "rfq_email",
           "target_supplier_id": "S-21",
           "material_id": "M-12",
-          "qty": 2000,
-          "need_by": "2026-11-05"
+          "qty": 4000,
+          "need_by": "2026-10-30"
         },
         {
           "type": "rfq_email",
           "target_supplier_id": "S-14",
           "material_id": "M-12",
-          "qty": 2000,
-          "need_by": "2026-11-05"
+          "qty": 4000,
+          "need_by": "2026-10-30"
         },
         {
           "type": "draft_po",
           "target_supplier_id": "S-21",
           "material_id": "M-12",
-          "qty": 2000,
+          "qty": 4000,
           "unit_price_inr": 412.5
         },
         {
+          "type": "expedite_email",
+          "target_supplier_id": "S-07",
+          "material_id": "M-07",
+          "qty": 7500
+        },
+        {
+          "type": "rfq_email",
+          "target_supplier_id": "S-16",
+          "material_id": "M-07",
+          "qty": 5000,
+          "need_by": "2026-11-02"
+        },
+        {
+          "type": "expedite_email",
+          "target_supplier_id": "S-07",
+          "material_id": "M-15",
+          "qty": 800
+        },
+        {
+          "type": "rfq_email",
+          "target_supplier_id": "S-19",
+          "material_id": "M-15",
+          "qty": 800,
+          "need_by": "2026-11-04"
+        },
+        {
           "type": "customer_notice",
-          "order_id": "O-1007",
+          "order_id": "O-1011",
           "kind": "assurance",
           "new_date": null
         },
         {
           "type": "customer_notice",
-          "order_id": "O-1014",
+          "order_id": "O-1019",
+          "kind": "assurance",
+          "new_date": null
+        },
+        {
+          "type": "customer_notice",
+          "order_id": "O-1022",
+          "kind": "assurance",
+          "new_date": null
+        },
+        {
+          "type": "customer_notice",
+          "order_id": "O-1028",
           "kind": "assurance",
           "new_date": null
         }
       ],
-      "cost_delta_inr": 350000.0,
+      "cost_delta_inr": 862875.0,
       "risk_reduction": 0.9,
       "orders_saved": 12,
       "recommended": true,
-      "rationale": "Saves all 12 orders for Rs 3.5 L extra: expedited stock covers the first days and S-21 covers the rest, with Coimbatore Alloys quoted as a backup."
+      "rationale": "Expedited stock bridges the first days and backup suppliers cover the rest, saving 12 of 12 orders for Rs 8.6 L extra."
     }
   ],
   "degraded": false,

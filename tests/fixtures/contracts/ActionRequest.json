@@ -3,53 +3,91 @@
   "task_id": "T7",
   "option": {
     "option_id": "OPT-C",
-    "label": "Split M-12 50/50 between S-03 and S-21, plus safety stock",
+    "label": "Split: expedite from current suppliers + order half from backups",
     "actions": [
       {
         "type": "expedite_email",
         "target_supplier_id": "S-03",
         "material_id": "M-12",
-        "qty": 2000
+        "qty": 1800
       },
       {
         "type": "rfq_email",
         "target_supplier_id": "S-21",
         "material_id": "M-12",
-        "qty": 2000,
-        "need_by": "2026-11-05"
+        "qty": 4000,
+        "need_by": "2026-10-30"
       },
       {
         "type": "rfq_email",
         "target_supplier_id": "S-14",
         "material_id": "M-12",
-        "qty": 2000,
-        "need_by": "2026-11-05"
+        "qty": 4000,
+        "need_by": "2026-10-30"
       },
       {
         "type": "draft_po",
         "target_supplier_id": "S-21",
         "material_id": "M-12",
-        "qty": 2000,
+        "qty": 4000,
         "unit_price_inr": 412.5
       },
       {
+        "type": "expedite_email",
+        "target_supplier_id": "S-07",
+        "material_id": "M-07",
+        "qty": 7500
+      },
+      {
+        "type": "rfq_email",
+        "target_supplier_id": "S-16",
+        "material_id": "M-07",
+        "qty": 5000,
+        "need_by": "2026-11-02"
+      },
+      {
+        "type": "expedite_email",
+        "target_supplier_id": "S-07",
+        "material_id": "M-15",
+        "qty": 800
+      },
+      {
+        "type": "rfq_email",
+        "target_supplier_id": "S-19",
+        "material_id": "M-15",
+        "qty": 800,
+        "need_by": "2026-11-04"
+      },
+      {
         "type": "customer_notice",
-        "order_id": "O-1007",
+        "order_id": "O-1011",
         "kind": "assurance",
         "new_date": null
       },
       {
         "type": "customer_notice",
-        "order_id": "O-1014",
+        "order_id": "O-1019",
+        "kind": "assurance",
+        "new_date": null
+      },
+      {
+        "type": "customer_notice",
+        "order_id": "O-1022",
+        "kind": "assurance",
+        "new_date": null
+      },
+      {
+        "type": "customer_notice",
+        "order_id": "O-1028",
         "kind": "assurance",
         "new_date": null
       }
     ],
-    "cost_delta_inr": 350000.0,
+    "cost_delta_inr": 862875.0,
     "risk_reduction": 0.9,
     "orders_saved": 12,
     "recommended": true,
-    "rationale": "Saves all 12 orders for Rs 3.5 L extra: expedited stock covers the first days and S-21 covers the rest, with Coimbatore Alloys quoted as a backup."
+    "rationale": "Expedited stock bridges the first days and backup suppliers cover the rest, saving 12 of 12 orders for Rs 8.6 L extra."
   },
   "approved_by": "user:asi1-demo"
 }
