@@ -1,0 +1,55 @@
+{
+  "incident_id": "7f3c2a9e-1b4d-4c8e-9a6f-2d5e8b1c0a47",
+  "task_id": "T7",
+  "option": {
+    "option_id": "OPT-C",
+    "label": "Split M-12 50/50 between S-03 and S-21, plus safety stock",
+    "actions": [
+      {
+        "type": "expedite_email",
+        "target_supplier_id": "S-03",
+        "material_id": "M-12",
+        "qty": 2000
+      },
+      {
+        "type": "rfq_email",
+        "target_supplier_id": "S-21",
+        "material_id": "M-12",
+        "qty": 2000,
+        "need_by": "2026-11-05"
+      },
+      {
+        "type": "rfq_email",
+        "target_supplier_id": "S-14",
+        "material_id": "M-12",
+        "qty": 2000,
+        "need_by": "2026-11-05"
+      },
+      {
+        "type": "draft_po",
+        "target_supplier_id": "S-21",
+        "material_id": "M-12",
+        "qty": 2000,
+        "unit_price_inr": 412.5
+      },
+      {
+        "type": "customer_notice",
+        "order_id": "O-1007",
+        "kind": "assurance",
+        "new_date": null
+      },
+      {
+        "type": "customer_notice",
+        "order_id": "O-1014",
+        "kind": "assurance",
+        "new_date": null
+      }
+    ],
+    "cost_delta_inr": 350000.0,
+    "risk_reduction": 0.9,
+    "orders_saved": 12,
+    "recommended": true,
+    "rationale": "Saves all 12 orders for Rs 3.5 L extra: expedited stock covers the first days and S-21 covers the rest, with Coimbatore Alloys quoted as a backup."
+  },
+  "approved_by": "user:asi1-demo"
+}

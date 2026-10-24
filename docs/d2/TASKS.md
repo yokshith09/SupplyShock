@@ -152,8 +152,10 @@ Task T3 from docs/d2/TASKS.md. Follow docs/d2/CLAUDE_D2.md.
 Build agents/sentinel/service.py: async def handle(req: EventQuery) -> EventResult.
 1. replay.py: if env REPLAY_MODE=true, return the event from
    data/replay_events/michaung_2023.json (write that file: Cyclone Michaung, type cyclone,
-   centre 13.08/80.27, radius_km 150, severity Orange, start 2023-12-03, sources
-   ["GDACS (replay)"], confidence 0.86). Same input → same output.
+   centre 13.08/80.27, radius_km 150, severity Orange, sources ["GDACS (replay)"],
+   confidence 0.86). It must equal the event in tests/fixtures/contracts/EventResult.json:
+   dates are shifted so start = today and end = today + 14 days, with the original
+   Dec 2023 dates kept in the JSON as metadata. Same input → same output.
 2. geocode.py: place name → (lat, lon) using the Open-Meteo geocoding API, with a small
    built-in dictionary first (Chennai, Tamil Nadu, Pune, Gujarat, Shenzhen, Penang, Stuttgart,
    Monterrey) so the demo never depends on it.

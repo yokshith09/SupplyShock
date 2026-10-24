@@ -1,0 +1,21 @@
+{
+  "incident_id": "7f3c2a9e-1b4d-4c8e-9a6f-2d5e8b1c0a47",
+  "task_id": "T2",
+  "event": {
+    "event_id": "GDACS-TC-1001046-replay",
+    "type": "cyclone",
+    "title": "Cyclone Michaung (replay of Dec 2023 event)",
+    "center": {
+      "lat": 13.08,
+      "lon": 80.27
+    },
+    "radius_km": 150.0,
+    "severity": "Orange",
+    "start": "2026-10-24",
+    "end": "2026-11-07",
+    "sources": [
+      "GDACS (replay)"
+    ],
+    "confidence": 0.86
+  }
+}

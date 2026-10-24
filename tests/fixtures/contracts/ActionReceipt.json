@@ -1,0 +1,44 @@
+{
+  "incident_id": "7f3c2a9e-1b4d-4c8e-9a6f-2d5e8b1c0a47",
+  "task_id": "T7",
+  "results": [
+    {
+      "type": "expedite_email",
+      "target": "S-03",
+      "status": "done",
+      "detail": "Expedite request sent to s03@supplyshock.demo (demo inbox)"
+    },
+    {
+      "type": "rfq_email",
+      "target": "S-21",
+      "status": "done",
+      "detail": "RFQ sent to s21@supplyshock.demo (demo inbox)"
+    },
+    {
+      "type": "rfq_email",
+      "target": "S-14",
+      "status": "done",
+      "detail": "RFQ sent to s14@supplyshock.demo (demo inbox)"
+    },
+    {
+      "type": "draft_po",
+      "target": "S-21",
+      "status": "draft",
+      "detail": "PO-2026-0412 generated: 2000 x M-12 @ Rs 412.50"
+    },
+    {
+      "type": "customer_notice",
+      "target": "O-1007",
+      "status": "draft",
+      "detail": "Assurance notice drafted for O-1007"
+    },
+    {
+      "type": "customer_notice",
+      "target": "O-1014",
+      "status": "draft",
+      "detail": "Assurance notice drafted for O-1014"
+    }
+  ],
+  "degraded": false,
+  "notes": ""
+}

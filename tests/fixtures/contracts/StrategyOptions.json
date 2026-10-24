@@ -1,0 +1,112 @@
+{
+  "incident_id": "7f3c2a9e-1b4d-4c8e-9a6f-2d5e8b1c0a47",
+  "task_id": "T5",
+  "options": [
+    {
+      "option_id": "OPT-A",
+      "label": "Expedite current stock by air before landfall",
+      "actions": [
+        {
+          "type": "expedite_email",
+          "target_supplier_id": "S-03",
+          "material_id": "M-12",
+          "qty": 2500
+        },
+        {
+          "type": "expedite_email",
+          "target_supplier_id": "S-07",
+          "material_id": "M-07",
+          "qty": 6000
+        },
+        {
+          "type": "expedite_email",
+          "target_supplier_id": "S-07",
+          "material_id": "M-15",
+          "qty": 1200
+        }
+      ],
+      "cost_delta_inr": 420000.0,
+      "risk_reduction": 0.55,
+      "orders_saved": 7,
+      "recommended": false,
+      "rationale": "Fastest to act (about 2 days), but it depends on suppliers inside the cyclone zone shipping before landfall, so 5 of 12 orders stay at risk."
+    },
+    {
+      "option_id": "OPT-B",
+      "label": "Switch M-12 to Pune Diecast (S-21)",
+      "actions": [
+        {
+          "type": "rfq_email",
+          "target_supplier_id": "S-21",
+          "material_id": "M-12",
+          "qty": 4000,
+          "need_by": "2026-11-05"
+        },
+        {
+          "type": "draft_po",
+          "target_supplier_id": "S-21",
+          "material_id": "M-12",
+          "qty": 4000,
+          "unit_price_inr": 412.5
+        }
+      ],
+      "cost_delta_inr": 280000.0,
+      "risk_reduction": 0.8,
+      "orders_saved": 11,
+      "recommended": false,
+      "rationale": "Cheapest option and removes the cyclone risk for M-12, but the 9-day lead time arrives after the 6-day stock-out, so 1 order still slips."
+    },
+    {
+      "option_id": "OPT-C",
+      "label": "Split M-12 50/50 between S-03 and S-21, plus safety stock",
+      "actions": [
+        {
+          "type": "expedite_email",
+          "target_supplier_id": "S-03",
+          "material_id": "M-12",
+          "qty": 2000
+        },
+        {
+          "type": "rfq_email",
+          "target_supplier_id": "S-21",
+          "material_id": "M-12",
+          "qty": 2000,
+          "need_by": "2026-11-05"
+        },
+        {
+          "type": "rfq_email",
+          "target_supplier_id": "S-14",
+          "material_id": "M-12",
+          "qty": 2000,
+          "need_by": "2026-11-05"
+        },
+        {
+          "type": "draft_po",
+          "target_supplier_id": "S-21",
+          "material_id": "M-12",
+          "qty": 2000,
+          "unit_price_inr": 412.5
+        },
+        {
+          "type": "customer_notice",
+          "order_id": "O-1007",
+          "kind": "assurance",
+          "new_date": null
+        },
+        {
+          "type": "customer_notice",
+          "order_id": "O-1014",
+          "kind": "assurance",
+          "new_date": null
+        }
+      ],
+      "cost_delta_inr": 350000.0,
+      "risk_reduction": 0.9,
+      "orders_saved": 12,
+      "recommended": true,
+      "rationale": "Saves all 12 orders for Rs 3.5 L extra: expedited stock covers the first days and S-21 covers the rest, with Coimbatore Alloys quoted as a backup."
+    }
+  ],
+  "degraded": false,
+  "notes": ""
+}

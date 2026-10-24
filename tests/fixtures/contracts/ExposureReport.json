@@ -1,0 +1,88 @@
+{
+  "incident_id": "7f3c2a9e-1b4d-4c8e-9a6f-2d5e8b1c0a47",
+  "task_id": "T2",
+  "suppliers_hit": [
+    "S-03",
+    "S-07",
+    "S-11"
+  ],
+  "materials": [
+    {
+      "material_id": "M-12",
+      "name": "ECU housing (aluminium die-cast)",
+      "supplier_ids": [
+        "S-03"
+      ],
+      "cover_days": 6.0,
+      "stockout_date": "2026-10-30",
+      "severity": "CRITICAL"
+    },
+    {
+      "material_id": "M-07",
+      "name": "Wiring harness connector",
+      "supplier_ids": [
+        "S-07"
+      ],
+      "cover_days": 9.0,
+      "stockout_date": "2026-11-02",
+      "severity": "HIGH"
+    },
+    {
+      "material_id": "M-15",
+      "name": "ECU control PCB assembly",
+      "supplier_ids": [
+        "S-07"
+      ],
+      "cover_days": 11.0,
+      "stockout_date": "2026-11-04",
+      "severity": "HIGH"
+    },
+    {
+      "material_id": "M-04",
+      "name": "Grey iron brake bracket casting",
+      "supplier_ids": [
+        "S-03"
+      ],
+      "cover_days": 18.0,
+      "stockout_date": "2026-11-11",
+      "severity": "MED"
+    },
+    {
+      "material_id": "M-22",
+      "name": "Imported Hall-effect speed sensor (via Ennore port)",
+      "supplier_ids": [
+        "S-11"
+      ],
+      "cover_days": 25.0,
+      "stockout_date": "2026-11-18",
+      "severity": "MED"
+    }
+  ],
+  "orders_at_risk": [
+    "O-1003",
+    "O-1005",
+    "O-1007",
+    "O-1008",
+    "O-1011",
+    "O-1014",
+    "O-1016",
+    "O-1019",
+    "O-1022",
+    "O-1025",
+    "O-1028",
+    "O-1031"
+  ],
+  "revenue_at_risk_inr": 18200000.0,
+  "trace": [
+    "Impact zone: 150 km radius x 1.2 buffer = 180 km around (13.08, 80.27).",
+    "S-03 Chennai Castings is 14 km from the cyclone centre -> inside the zone.",
+    "S-07 Sriperumbudur Electronics is 41 km from the cyclone centre -> inside the zone.",
+    "S-11 Ennore Port Forwarding is 18 km from the cyclone centre -> inside the zone.",
+    "Expected disruption for an Orange cyclone: 14 days.",
+    "M-12 ECU housing: 6.0 days of cover < 9-day lead time of the best alternate -> CRITICAL.",
+    "M-07 and M-15: cover below the 14-day disruption -> HIGH.",
+    "12 open orders use these 5 materials and are due within 14 days: Rs 1.82 Cr at risk."
+  ],
+  "degraded": false,
+  "notes": ""
+}
