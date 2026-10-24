@@ -1,5 +1,7 @@
 # D1 — What We Build, Rules, Milestones & Prompts
 
+> **Final outcome (24 Oct):** M0-M4 done and verified (hello agent, intents/planner/mock dispatch, executor/local dispatch/store, Action agent with real email, cards and approval in ASI:One). M5 reduced to: merge d1+d2 into main, README, shared chat, submission. Hosting, Payment Protocol and Watchtower were cut. See [06_FINAL_STATUS.md](06_FINAL_STATUS.md).
+
 > Owner: **D1 (Conversation & Execution)**. Event day: 24 Oct 2026, submit by **17:50 IST**.
 > Status: FINAL (13:15 IST). Times shifted +25 min from the first draft because M0 started late; M5/M6 unchanged.
 > Source of truth: [04_TEAM_PLAN.md](04_TEAM_PLAN.md) §B (tasks), §E (contracts), [TRD](TRD.md), [PRD](PRD.md). Hackpack: https://innovationlab.fetch.ai/events/hackathons/fetch-a-thon-3/hackpack

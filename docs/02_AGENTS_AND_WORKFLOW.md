@@ -1,5 +1,7 @@
 # SupplyShock — Agents, Workflow & Multi-Step Orchestration
 
+> **Status note (24 Oct 2026):** this doc describes the planned design. What is actually built, and what was cut (Payment Protocol, Watchtower, remote multi-agent messaging), is in [06_FINAL_STATUS.md](06_FINAL_STATUS.md). Where they differ, that page wins.
+
 ## 1. Agent roster
 
 There are 7 agents, all built with uAgents and registered on Agentverse. Only the **Orchestrator** speaks the Chat Protocol to ASI:One. The specialists talk to it through typed uAgents messages, and each specialist also exposes the Chat Protocol so it can be discovered and used on its own.

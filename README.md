@@ -66,4 +66,4 @@ python -m agents.orchestrator.agent
 Open the inspector link it prints, click **Connect → Mailbox**, then chat with the agent from ASI:One (Agents enabled) and send: *Cyclone warning on the Tamil Nadu coast, are we exposed?*
 
 ## Documents
-[Problem Statement](docs/01_PROBLEM_STATEMENT.md) · [Agents & Workflow](docs/02_AGENTS_AND_WORKFLOW.md) · [Deliverables & Tech Stack](docs/03_DELIVERABLES_REQUIREMENTS_TECHSTACK.md) · [PRD](docs/PRD.md) · [TRD](docs/TRD.md) · [Team Plan](docs/04_TEAM_PLAN.md)
+**[Final status (what is built)](docs/06_FINAL_STATUS.md)** · **[Submission pack](docs/07_SUBMISSION.md)** · [Problem Statement](docs/01_PROBLEM_STATEMENT.md) · [Agents & Workflow](docs/02_AGENTS_AND_WORKFLOW.md) · [Deliverables & Tech Stack](docs/03_DELIVERABLES_REQUIREMENTS_TECHSTACK.md) · [PRD](docs/PRD.md) · [TRD](docs/TRD.md) · [Team Plan](docs/04_TEAM_PLAN.md)

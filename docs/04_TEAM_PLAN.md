@@ -1,5 +1,7 @@
 # SupplyShock — Team Plan: Task Division, Contracts & Git Workflow
 
+> **Status note (24 Oct 2026):** this doc describes the planned design. What is actually built, and what was cut (Payment Protocol, Watchtower, remote multi-agent messaging), is in [06_FINAL_STATUS.md](06_FINAL_STATUS.md). Where they differ, that page wins.
+
 > **Audience:** both developers. Read all of this before writing code.
 > **Based on:** [PRD](PRD.md), [TRD](TRD.md), [Agents & Workflow](02_AGENTS_AND_WORKFLOW.md), [Deliverables](03_DELIVERABLES_REQUIREMENTS_TECHSTACK.md).
 > **Rule zero:** contracts first, code second. Nobody starts parallel coding until **Phase 0** (Section G) is merged into `main`.

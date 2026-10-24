@@ -1,5 +1,7 @@
 # SupplyShock — Deliverables, Requirements & Tech Stack
 
+> **Status note (24 Oct 2026):** this doc describes the planned design. What is actually built, and what was cut (Payment Protocol, Watchtower, remote multi-agent messaging), is in [06_FINAL_STATUS.md](06_FINAL_STATUS.md). Where they differ, that page wins.
+
 ## 1. Hackathon deliverables checklist
 
 | # | Deliverable | What we submit | Owner | Status |
