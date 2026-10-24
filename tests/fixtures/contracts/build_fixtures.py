@@ -85,9 +85,9 @@ EXPOSURE_REPORT = {
     "revenue_at_risk_inr": 18_200_000.0,
     "trace": [
         "Impact zone: 150 km radius x 1.2 buffer = 180 km around (13.08, 80.27).",
-        "S-03 Chennai Castings is 14 km from the cyclone centre -> inside the zone.",
-        "S-07 Sriperumbudur Electronics is 41 km from the cyclone centre -> inside the zone.",
-        "S-11 Ennore Port Forwarding is 18 km from the cyclone centre -> inside the zone.",
+        "S-03 Chennai Castings is 12 km from the cyclone centre -> inside the zone.",
+        "S-07 Sriperumbudur Electronics is 38 km from the cyclone centre -> inside the zone.",
+        "S-11 Ennore Port Forwarding is 15 km from the cyclone centre -> inside the zone.",
         "Expected disruption for an Orange cyclone: 14 days.",
         "M-12 ECU housing: 6.0 days of cover < 9-day lead time of the best alternate -> CRITICAL.",
         "M-07 and M-15: cover below the 14-day disruption -> HIGH.",
@@ -104,7 +104,7 @@ ALTERNATES = [
         "material_id": "M-12",
         "price_inr": 412.5,
         "lead_time_days": 9,
-        "distance_km": 915.0,
+        "distance_km": 914.0,
         "score": 0.86,
     },
     {
@@ -113,7 +113,7 @@ ALTERNATES = [
         "material_id": "M-12",
         "price_inr": 428.0,
         "lead_time_days": 7,
-        "distance_km": 425.0,
+        "distance_km": 427.0,
         "score": 0.81,
     },
     {
@@ -122,7 +122,7 @@ ALTERNATES = [
         "material_id": "M-07",
         "price_inr": 46.0,
         "lead_time_days": 6,
-        "distance_km": 915.0,
+        "distance_km": 930.0,
         "score": 0.84,
     },
     {
@@ -131,7 +131,7 @@ ALTERNATES = [
         "material_id": "M-15",
         "price_inr": 1850.0,
         "lead_time_days": 10,
-        "distance_km": 1370.0,
+        "distance_km": 1372.0,
         "score": 0.78,
     },
 ]
@@ -281,7 +281,9 @@ FIXTURES: dict[str, dict] = {
 def main() -> None:
     for name, payload in FIXTURES.items():
         path = OUT_DIR / f"{name}.json"
-        path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        path.write_text(
+            json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n"
+        )
     print(f"Wrote {len(FIXTURES)} fixtures to {OUT_DIR}")
 
 
