@@ -1,0 +1,1 @@
+# D2 dependencies (httpx, tenacity, networkx, haversine, respx, reportlab, ...) are added by D2 here.
