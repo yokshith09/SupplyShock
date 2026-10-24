@@ -7,3 +7,4 @@ def _clean_dispatch_env(monkeypatch):
     for k in ("DISPATCH_MODE", "DISPATCH_LOCAL_AGENTS", "DEMO_SUPPLIER_INBOX", "RESEND_API_KEY",
               "SMTP_HOST", "SMTP_USER", "SMTP_PASS", "ASI1_API_KEY"):
         monkeypatch.delenv(k, raising=False)
+    monkeypatch.setenv("EMAIL_GAP_S", "0")

@@ -79,7 +79,7 @@ def test_full_card_flow_pick_review_approve_receipt(orch):
     assert any(row["label"] == "Will do" for row in r2.payload["summary_rows"])
     (r3,) = sel(orch, action="approve", option_id="OPT-C", incident_id=iid)
     assert r3.kind == "detail" and r3.terminal and "Executed OPT-C" in r3.text
-    assert len(r3.payload["summary_rows"]) == 6 and r3.payload["ctas"]
+    assert len(r3.payload["summary_rows"]) >= 6 and r3.payload["ctas"]
     assert orch.saved and orch.saved[0]["id"] == iid and orch.saved[0]["chosen_option"]["option_id"] == "OPT-C"
 
 

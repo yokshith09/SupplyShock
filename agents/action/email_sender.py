@@ -74,6 +74,7 @@ def send(subject: str, body: str, intended_to: str | None, intended_name: str,
     for attempt in range(retries + 1):
         try:
             transport(msg)
+            time.sleep(float(os.getenv("EMAIL_GAP_S", "0.6")))  # stay under Resend free-tier 2 requests/second
             return SendResult("done", f"sent to {inbox} (demo inbox) for {intended_name}")
         except Exception as e:  # noqa: BLE001
             last = e
