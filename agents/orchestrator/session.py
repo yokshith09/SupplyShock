@@ -14,6 +14,7 @@ class Session:
     exposure: Any = None
     sourcing: Any = None
     options: list = field(default_factory=list)
+    chosen_option_id: str | None = None
     receipt: Any = None
 
 

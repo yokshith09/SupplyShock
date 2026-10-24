@@ -61,6 +61,17 @@ def execution_order(plan: Plan) -> list[list[Task]]:
     return layers
 
 
+def plan_from_llm_json(raw: str, r: IntentResult) -> Plan:
+    """Use an LLM-drafted plan only if it parses and validates; otherwise the template plan."""
+    try:
+        plan = validate_plan(Plan.model_validate_json(raw))
+        if plan.intent != r.intent.value:
+            raise PlanError("intent mismatch")
+        return plan
+    except Exception:  # noqa: BLE001 - any invalid draft falls back to the template
+        return build_plan(r)
+
+
 def build_plan(r: IntentResult) -> Plan:
     a = {"location": r.location, "type": r.event_type, "supplier_id": r.supplier_id, "material": r.material}
     if r.intent == Intent.EVENT_IMPACT:
