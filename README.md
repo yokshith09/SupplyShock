@@ -41,7 +41,7 @@ Every card also has a full text fallback, and every step works with typed comman
 | SupplyShock Strategy | `agent1qw7yptuckfzmn5yax5j5kllkd7n74y4pyn50a58cuh0y58y42tj8ztxtc2s` | [profile](https://agentverse.ai/agents/details/agent1qw7yptuckfzmn5yax5j5kllkd7n74y4pyn50a58cuh0y58y42tj8ztxtc2s/profile) |
 | SupplyShock Action | `agent1q0tl4ypgxlsdw3srtkt46g96dec0kdes4qefj5clqz70ngwytekxq0qr5v2` | [profile](https://agentverse.ai/agents/details/agent1q0tl4ypgxlsdw3srtkt46g96dec0kdes4qefj5clqz70ngwytekxq0qr5v2/profile) |
 
-ASI:One shared chat: https://asi1.ai/invite?channelInviteKey=2IPKxMbE_odu0gxh6oA4e1M0FuRqeFc3ZU3O7DQ8x5c · Demo video: _add_
+ASI:One shared chat: https://asi1.ai/ai/agent1qgt7x0cakv0htfapv9yecj8mqw28jsyramh03aqztfquzlavcadc7nczfdz · Demo video: _add_
 
 **Honest scope.** The company's ERP data (suppliers, BOM, inventory, orders) is a seeded demo dataset for a fictional manufacturer, "Apex Components Pvt Ltd". External signals use a recorded real event in replay mode (`REPLAY_MODE=true`) because live GDACS is slow and unreliable. Demo emails are redirected to a controlled inbox (`DEMO_SUPPLIER_INBOX`), never to real suppliers. Not built: Payment Protocol, Watchtower follow-up alerts.
 
