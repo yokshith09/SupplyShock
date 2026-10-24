@@ -118,7 +118,7 @@ Every card also has a **plain-text fallback** for clients that don't render card
 | NFR-1 | Exposure report in ≤ 60 s (p90) |
 | NFR-2 | Any single external API failure must not end the workflow (degraded mode) |
 | NFR-3 | No outward action without approval |
-| NFR-4 | All agents always reachable through Agentverse mailbox / hosted |
+| NFR-4 | All agents always-on and reachable through Agentverse (hosted, or deployed on Render/Railway with mailbox), including after the submission deadline |
 | NFR-5 | Secrets kept in environment variables, never in the repo |
 | NFR-6 | Every recommendation includes an explanation trace |
 | NFR-7 | Agent logs are structured and keyed by incident_id |
@@ -146,9 +146,11 @@ Every card also has a **plain-text fallback** for clients that don't render card
 | Card rendering differences | Text fallback for every card |
 | LLM produces an invalid plan | Schema validation, then a template plan for that intent |
 
-## 10. Release plan
-| Phase | Scope |
+## 10. Release plan (one day, 24 Oct)
+| Time (IST) | Scope |
 |---|---|
-| Day 1 | Orchestrator + Chat Protocol + Sentinel + Exposure, registered on Agentverse |
-| Day 2 | Sourcing + Strategy + Action + cards |
-| Day 3 | Payment, Watchtower, error handling, demo video, submission |
+| 12:50–13:30 | Orchestrator + Chat Protocol registered on Agentverse (hello reply) |
+| 13:30–15:30 | Sentinel + Exposure + Sourcing + Strategy + Action |
+| 15:30–16:30 | Cards, real RFQ email, README badges, always-on deployment |
+| 16:30–17:50 | Shared chat, 3–5 min demo video, dashboard submission, link check |
+| Stretch | Payment Protocol, Watchtower, GDELT, chaos test |

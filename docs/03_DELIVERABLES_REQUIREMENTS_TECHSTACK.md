@@ -6,8 +6,8 @@
 |---|---|---|---|---|
 | 1 | ASI:One Shared Chat URL | One chat that runs the full flow: trigger → exposure → options → approve → pay → receipt | | ☐ |
 | 2 | Agentverse Agent Profile URLs | All 7 agents (Orchestrator is the main one) | | ☐ |
-| 3 | Public GitHub repo | Code, README with setup and test steps, `.env.example`, seed data | | ☐ |
-| 4 | Demo video (2–3 min) | Problem (20 s) → live chat demo (2 min) → architecture and bonus features (30 s) | | ☐ |
+| 3 | Public GitHub repo | Code, README with setup and test steps, `.env.example`, seed data. **README must include both badges** (`tag:innovationlab`, `tag:hackathon`) and every agent's name + Agentverse address | | ☐ |
+| 4 | Demo video (**3–5 min**, per hackpack) | Problem (30 s) → live chat demo (2.5–3 min) → architecture and bonus features (45 s) | | ☐ |
 | 5 | Project description | Problem, target users, outcome (see below) | | ☐ |
 | 6 | Dashboard submission | Through the Project Submission Agent on the Fetch-A-Thon 3.0 dashboard | | ☐ |
 
@@ -46,7 +46,7 @@
 - [ ] Resend account (free tier) or a Gmail app password for SMTP
 - [ ] A demo inbox (e.g. supplyshock.demo@…) acting as the "suppliers"
 - [ ] GitHub repo (public)
-- [ ] Optional: Render / Railway account for always-on hosting
+- [ ] **Required:** always-on hosting for all agents (Agentverse hosted, or Render / Railway with mailbox). Agents must stay online after the deadline so judges can test them
 
 ## 5. Software requirements
 
@@ -84,15 +84,18 @@ respx
 | Actions | Resend / SMTP email, ReportLab PDF POs, ERP webhook (stub) |
 | UI | ASI1 Interactive Cards inside ASI:One (no frontend) |
 | Quality | pytest, respx, structured JSON logging |
-| Hosting | Agentverse hosted agents or Render / Railway with mailbox |
+| Hosting | **Required, always-on:** Agentverse hosted agents or Render / Railway with mailbox (not a laptop) |
 
-## 7. 3-day build plan
+## 7. One-day build plan (event day: 24 Oct, submit by 17:50 IST)
 
-| Day | Tasks | Exit criteria |
+| Time (IST) | Tasks | Exit criteria |
 |---|---|---|
-| **Day 1** | Repo skeleton, shared models, seed data; Orchestrator with Chat Protocol on Agentverse; Sentinel (GDACS + Open-Meteo); Exposure; "hello card" test | "Are we exposed to Chennai cyclone?" returns a text exposure report in ASI:One |
-| **Day 2** | Planner + DAG executor; Sourcing; Strategy; Action (email + PDF); all cards; GDELT | Full flow works up to the receipt |
-| **Day 3** | Payment Protocol; Watchtower; failure handling and chaos test; Agentverse READMEs; replay mode; demo video; submission | Shared chat URL recorded, everything submitted |
+| **12:50–13:30** | Minimal skeleton, shared models, seed data; Orchestrator with Chat Protocol on Agentverse ("hello" reply); "hello card" test | Orchestrator answers in ASI:One |
+| **13:30–15:30** | Sentinel (GDACS + Open-Meteo), Exposure, Sourcing, Strategy, template plans; Action agent (email + PDF) | "Are we exposed to Chennai cyclone?" returns a text exposure report and options |
+| **15:30–16:30** | Exposure, options and approval cards; real RFQ email; **README badges + agent addresses; deploy all agents always-on** | Full flow works up to the receipt, with agents hosted |
+| **16:30–17:30** | Record the shared chat URL and the 3–5 min demo video; description; submit via the dashboard's Project Submission Agent; verify links are public | Submission accepted |
+| **17:30–17:50** | Buffer and link check | Everything accessible |
+| **Stretch (only if time remains)** | Payment Protocol, Watchtower, GDELT, chaos test | Do not start before the full flow is submitted-ready |
 
 ## 8. Demo script (video)
 1. **Hook (15 s):** "In Dec 2023 Cyclone Michaung shut down Chennai's auto belt. Most suppliers' customers found out days later."

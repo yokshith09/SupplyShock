@@ -383,58 +383,50 @@ For the final integration both developers work on `integration/e2e`, cut from `m
 
 ---
 
-# G. Development timeline
+# G. Development timeline (one day: 24 Oct, submit by 17:50 IST)
 
 ```
-            Phase 0         Phase 1 (Day 1)        Phase 2 (Day 2)        Phase 3 (Day 3)
-           (together,       (parallel)             (parallel)             (together)
-            2–3 h)
-D1  ──[skeleton+contracts]──[Orch chat+session ──[cards+approval  ──┐
-                            +planner+executor     +payment+Action    │
-                            (mock mode)]          +Watchtower]       ├──[integration, remote mode,
-D2  ──[fixtures+schema   ]──[seed+llm+Sentinel ──[Sourcing+Strategy ─┘   deploy, demo, submit]
-       (together)           +Exposure (offline)]  +4 agent wrappers
-                                                  +failure tests]
+12:50        13:30                    15:30                 16:30                 17:50
+ │ Phase 0   │ Phase 1                │ Phase 2             │ Phase 3             │
+ │ (≤40 min) │ (parallel, 2 h)        │ (parallel, 1 h)     │ (together, 1 h 20)  │
+D1 skeleton+ Orch chat+session+intents  cards+approval+Action  integration, hosting,
+   contracts +template plans+executor   +README badges          shared chat, video,
+D2 fixtures+ seed+llm+Sentinel+Exposure Sourcing+Strategy      submit
+   schema                               +wrappers+registration
 ```
 
-### Phase 0: Contracts and skeleton (sequential, both together, ~2–3 h). Everyone waits for this to finish.
+### Phase 0: Contracts and skeleton (12:50–13:30, both together, ≤ 40 min). Everyone waits for this to finish.
 | Step | Who | Output |
 |---|---|---|
-| 0.1 | D1 | Folder skeleton with empty `__init__.py`, `pyproject.toml`, `.gitattributes`, `.editorconfig`, `.gitignore` update, root `requirements.txt` + 2 sub-files, `.env.example` with 2 blocks, CI workflow (ruff + pytest) |
-| 0.2 | D1 (both review) | `shared/models.py` and `shared/constants.py` with all schemas from TRD §5 plus the rules in E.1 |
-| 0.3 | D2 | `tests/fixtures/contracts/*.json`, one per model, matching the demo story; `tests/test_contracts.py` that loads each fixture into its model |
-| 0.4 | D2 | `data/schema.sql` + an empty `db.py` with function signatures |
-| 0.5 | D1 | `shared/dispatch.py` mock mode working against the fixtures |
-| 0.6 | Both | Interactive Cards "hello card" check and Payment Protocol field check against the current Fetch.ai docs; fix models if needed |
-| ✅ | Both | PR `contract/phase0` approved by both and merged. **Parallel work starts here** |
+| 0.1 | D1 | Folder skeleton, `pyproject.toml`, `.gitignore`, root `requirements.txt`, `.env.example` |
+| 0.2 | D1 (both review) | `shared/models.py` and `shared/constants.py` with the schemas from TRD §5 |
+| 0.3 | D2 | `tests/fixtures/contracts/*.json` matching the demo story; `data/schema.sql` |
+| 0.4 | D1 | Orchestrator echoing messages in ASI:One through Agentverse (can run in parallel with 0.3) |
+| 0.5 | Both | "Hello card" and Payment Protocol field check against the current Fetch.ai docs |
 
-### Phase 1: Day 1 (parallel)
+### Phase 1: 13:30–15:30 (parallel)
 | D1 | D2 |
 |---|---|
 | D1-1 Orchestrator + Chat Protocol on Agentverse | D2-1 Seed generator + db.py |
-| D1-2 Session | D2-3 `shared/llm.py` (merge **early**, D1 needs it for D1-3) |
-| D1-3 Intents (stub the LLM until D2-3 merges) | D2-4 Sentinel (GDACS + Open-Meteo first, GDELT next) |
-| D1-4 Planner, D1-5 Executor, D1-6 dispatch modes | D2-5 Exposure |
-| **Exit:** `chat_cli.py` full text flow in **mock** mode | **Exit:** Sentinel + Exposure `service.handle()` pass offline tests on the replay event |
+| D1-2 Session, D1-3 Intents (stub LLM until D2-3) | D2-3 `shared/llm.py` (merge **early**) |
+| D1-4 Template plans, D1-5 Executor, D1-6 dispatch (`local` mode) | D2-4 Sentinel (GDACS + Open-Meteo), D2-5 Exposure |
+| **Exit:** text flow works end to end | **Exit:** Sentinel + Exposure pass offline tests on the replay event |
 
-**Sync point (end of Day 1, 15 min):** D1 switches to `DISPATCH_MODE=local` for Sentinel and Exposure, and fixes any mismatch.
-
-### Phase 2: Day 2 (parallel)
+### Phase 2: 15:30–16:30 (parallel)
 | D1 | D2 |
 |---|---|
-| D1-7 Cards, D1-8 card routing | D2-6 Sourcing |
-| D1-10 Action agent (emails + PDF) | D2-7 Strategy |
-| D1-9 Payment | D2-8 Agent wrappers for the 4 specialists + Agentverse registration; send addresses to D1 |
-| D1-11 Watchtower (calls the Sentinel service locally) | D2-9 Failure tests + `send_task.py`; GDELT adapter |
-| **Exit:** in `local` mode, full flow up to the receipt in ASI:One | **Exit:** all 4 specialists live on Agentverse, offline tests green |
+| D1-7 Cards, D1-8 card routing | D2-6 Sourcing, D2-7 Strategy |
+| D1-10 Action agent (email + PDF) | D2-8 Register agents on Agentverse, send addresses to D1 |
+| **README badges (`tag:innovationlab`, `tag:hackathon`) and agent addresses** | **Deploy always-on** (Agentverse hosted or Render/Railway) |
+| **Exit:** full flow up to the receipt in ASI:One | **Exit:** agents online and reachable |
 
-### Phase 3: Day 3 (together, sequential)
-1. `integration/e2e` branch → `DISPATCH_MODE=remote` → full flow in ASI:One (D1 drives, D2 fixes)
-2. Chaos test: stop Sourcing → confirm degraded completion
-3. Payment on testnet end to end
-4. Deploy all 7 agents so they stay up (D1); final seed tuning (D2)
-5. Agentverse READMEs, shared chat URL, video, submission (D1); description, fact-check of numbers (D2)
-6. Merge to `main`, tag `v1.0-submission`
+### Phase 3: 16:30–17:50 (together)
+1. Full flow in ASI:One against the hosted agents; record the shared chat URL
+2. 3–5 minute demo video; project description
+3. Submit through the dashboard's Project Submission Agent; verify every link is public
+4. Buffer from 17:30
+
+**Stretch (only after the above is done):** D1-9 Payment Protocol, D1-11 Watchtower, GDELT, chaos test.
 
 ### Hard dependencies (what must happen first)
 | Blocked task | Waits for |

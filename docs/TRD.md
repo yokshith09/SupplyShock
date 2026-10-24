@@ -41,7 +41,7 @@ ASI:One ──(Agent Chat Protocol)──► Orchestrator (uAgent, mailbox / hos
 | PDF | `reportlab` | Draft PO |
 | Config | `python-dotenv` | Secrets |
 | Tests | `pytest`, `pytest-asyncio`, `respx` (HTTP mocks) | Reliability |
-| Deploy | Agentverse hosted / Render / Railway / a VM with mailbox | Always-on agents |
+| Deploy | Agentverse hosted / Render / Railway / a VM with mailbox | **Required:** agents must stay online after the deadline for judges |
 
 ## 3. External data sources
 

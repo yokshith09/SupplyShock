@@ -1,5 +1,8 @@
 # SupplyShock ⚡ — Supply-Chain Disruption Agents (Fetch-A-Thon 3.0)
 
+![tag:innovationlab](https://img.shields.io/badge/innovationlab-3D8BD3)
+![tag:hackathon](https://img.shields.io/badge/hackathon-5F43F1)
+
 From disruption to decision to action, in one ASI:One chat.
 
 A multi-agent supply-chain disruption responder for manufacturers, built on Fetch.ai **uAgents**, registered on **Agentverse**, and used entirely through **ASI:One** (Agent Chat Protocol + Interactive Cards + Payment Protocol).
@@ -29,5 +32,14 @@ python scripts/run_all.py
 ```
 Then open ASI:One and search for **SupplyShock**.
 
-## Agentverse links
-_To be added after registration._
+## Agentverse agents
+All agents must be always-on (hosted on Agentverse or deployed on Render/Railway) so judges can use them after the deadline.
+
+| Agent | Agentverse address | Profile URL |
+|---|---|---|
+| Orchestrator (Shock Commander) | _TBD_ | _TBD_ |
+| Sentinel | _TBD_ | _TBD_ |
+| Exposure | _TBD_ | _TBD_ |
+| Action | _TBD_ | _TBD_ |
+
+ASI:One shared chat URL: _TBD_  ·  Demo video: _TBD_
